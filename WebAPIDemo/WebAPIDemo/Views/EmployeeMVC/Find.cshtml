@@ -1,0 +1,39 @@
+﻿<h1>Get Details By ID</h1>
+<input type="text" class="form-control" id="datavalue" />
+<button id="searchData" onclick="SearchData()">Find Employee</button>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>Salary</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        
+    </tbody>
+</table>
+
+<script type="text/javascript">
+
+    async function SearchData() {
+        await fetch("https://localhost:44395/api/employee/" + document.querySelector("#datavalue").value)
+            .then((res) => {
+                res.json();
+            })
+            .then(data => displayItems(data))
+            .catch(err => console.error("unable to get Items", err));
+    }
+
+    function displayItems(data) {
+           var s = "<tr> <td>" + data.Id + "</td><td>" + data.firstname + "</td><td>" + data.lastname + "</td><td>" + data.gender + "</td><td>" + data.salary + "</td></tr>";
+        var table = document.querySelector("table");
+        table.children[1].innerHTML = s;
+    }
+
+    SearchData();
+</script>

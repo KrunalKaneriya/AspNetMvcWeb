@@ -1,0 +1,92 @@
+﻿@using WebAPIDemo.Models
+
+@model List<Employee>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div>
+        <h2>Employee List</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Gender</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (Employee e in Model)
+                {
+                    <tr>
+                        <td>@e.Id</td>
+                        <td>@e.firstname</td>
+                        <td>@e.lastname</td>
+                        <td>@e.gender</td>
+                        <td>@e.salary</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <center>
+        <button class="btn btn-primary">Get Data</button>
+        <button id="clear-btn" class="btn btn-danger">Clear Data</button>
+    </center>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script>
+
+        var fetchbtn = document.querySelector("button");
+        var clearbtn = document.getElementById("clear-btn");
+
+        clearbtn.addEventListener("click", (e) => {
+            var table = document.querySelector("table");
+            table.children[1].innerHTML = "";
+        }) 
+
+        fetchbtn.addEventListener("click", (e) => {
+            fetchDataFromAPI();
+        })
+
+        
+
+
+        async function fetchDataFromAPI() {
+            await fetch("https://localhost:44395/api/employee")
+                .then((res) => res.json())
+                .then(data => displayItems(data))
+                .catch(err => console.error("unable to get Items", err));
+        }
+
+        function displayItems(data) {
+            var s = '';
+            for (let i = 0; i < data.length; i++) {
+                s += "<tr> <td>" + data[i].Id + "</td><td>" + data[i].firstname + "</td><td>" + data[i].lastname + "</td><td>" + data[i].gender + "</td><td>" + data[i].salary + "</td></tr>";
+            }
+            var table = document.querySelector("table");
+            table.children[1].innerHTML += s;
+        }
+
+    </script>
+
+</body>
+</html>
+
+
+
+    
