@@ -1,0 +1,39 @@
+﻿@using EmployeeCrud.Models
+@model List<Employee>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>City</th>
+            </tr>
+
+            @foreach(Employee e in Model)
+            {
+                <tr>
+                    <td>@e.Id</td>
+                    <td>@e.name</td>
+                    <td>@e.age</td>
+                    <td>@e.city</td>
+                    <td>@Html.ActionLink("Update Details", "UpdateEmployee", new { Id = e.Id }, null)</td>
+                    <td>@Html.ActionLink("Delete Details", "DeleteEmployee", new { Id = e.Id }, null)</td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

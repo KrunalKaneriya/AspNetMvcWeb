@@ -1,0 +1,31 @@
+﻿@using EmployeeCrud.Models
+@model Employee
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>InsertEmployee</title>
+</head>
+<body>
+    <div> 
+        @using (Html.BeginForm("InsertEmployee","Employee",FormMethod.Post))
+            {
+                <center>
+                    <label>Name:</label>
+                    @Html.TextBoxFor(a => a.name)
+                    <label>Age</label>
+                    @Html.TextBoxFor(a => a.age)
+                    <label>City</label>
+                    @Html.TextBoxFor(a => a.city)
+
+                    <input type="submit" value="Insert Data"/>
+                </center>
+            }
+    </div>
+</body>
+</html>
